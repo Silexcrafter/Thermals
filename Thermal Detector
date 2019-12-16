@@ -1,0 +1,9 @@
+//This part identifies the thermals during the flight.
+
+Let x(Xx;Yx;Zx) be a point in space. For every x :
+  If Zx<Z(x+3)<Z(x+6)<Z(x+9)...<Z(x+3n)
+
+  //Due to the lack of precision of the GPS logger I compare altitude between x and x+3
+
+  Then Compute the program Intersection for [x;x+3n]
+
