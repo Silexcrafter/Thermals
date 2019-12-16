@@ -1,0 +1,58 @@
+Solve the intersect problem for every [n;n+2] segments. Print only the intersections of segments not straight line.
+[n;n+1] segments intersect at the extremity of n segment so that's useless.
+
+
+
+
+Let A,B,C,D be 2-space position vectors.  Then the directed line
+    segments AB & CD are given by:
+
+        AB=A+r(B-A), r in [0,1]
+        CD=C+s(D-C), s in [0,1]
+
+    If AB & CD intersect, then
+
+        A+r(B-A)=C+s(D-C), or
+
+        Ax+r(Bx-Ax)=Cx+s(Dx-Cx)
+        Ay+r(By-Ay)=Cy+s(Dy-Cy)  for some r,s in [0,1]
+
+    Solving the above for r and s yields
+
+            (Ay-Cy)(Dx-Cx)-(Ax-Cx)(Dy-Cy)
+        r = -----------------------------  (eqn 1)
+            (Bx-Ax)(Dy-Cy)-(By-Ay)(Dx-Cx)
+
+            (Ay-Cy)(Bx-Ax)-(Ax-Cx)(By-Ay)
+        s = -----------------------------  (eqn 2)
+            (Bx-Ax)(Dy-Cy)-(By-Ay)(Dx-Cx)
+
+    Let P be the position vector of the intersection point, then
+
+        P=A+r(B-A) or
+
+        Px=Ax+r(Bx-Ax)
+        Py=Ay+r(By-Ay)
+
+    By examining the values of r & s, you can also determine some
+    other limiting conditions:
+
+        If 0<=r<=1 & 0<=s<=1, intersection exists
+            r<0 or r>1 or s<0 or s>1 line segments do not intersect
+
+        If the denominator in eqn 1 is zero, AB & CD are parallel
+        If the numerator in eqn 1 is also zero, AB & CD are collinear.
+
+    If they are collinear, then the segments may be projected to the x- 
+    or y-axis, and overlap of the projected intervals checked.
+
+    If the intersection point of the 2 lines are needed (lines in this
+    context mean infinite lines) regardless whether the two line
+    segments intersect, then
+
+        If r>1, P is located on extension of AB
+        If r<0, P is located on extension of BA
+        If s>1, P is located on extension of CD
+        If s<0, P is located on extension of DC
+
+    Also note that the denominators of eqn 1 & 2 are identical.
