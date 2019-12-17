@@ -1,4 +1,10 @@
-//Copies the file testeur.igc to the destination folder with the new name
-import shutil
-shutil.copyfile("Documents/Thermiques/Python crash test/testeur.igc",
-               "Documents/Thermiques/Python crash test/test12")
+//Creates a new file test2 extracting only the B line from test1
+
+from pathlib import Path
+p1= Path("Documents/Thermiques/Python/")
+p2= Path("Documents/Thermiques/Python/")
+t1= open(p1/"test1", 'r')
+t2= open(p2/"test2", 'w+')
+for line in t1:
+        if "B" in line:
+            t2.write(line)
