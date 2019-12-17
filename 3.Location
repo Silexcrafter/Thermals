@@ -1,0 +1,5 @@
+Let Sn be a list of points identified as a thermal.
+Let Isn be the list of intersections computed in the program Intersection
+If the 'size' of the list is greater than 3
+Then compute the trend of the points of Is (in 3D)
+Print Tn the intersection of the trend with the plane z=0
