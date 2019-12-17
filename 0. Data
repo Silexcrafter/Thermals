@@ -1,1 +1,12 @@
-This program transforms raw data in .igc files into a list of points in 3D.
+This program transforms raw data into a list of points in 3D.
+The data is stored in an ascii text format called IGC.
+
+IGC points are stored in this way: B1006384853974N00420818EA-00190009200000
+the record must start with "B"
+the first 6 digits are the time in utc of the record "100638" in this example
+the next 7 digits are the x coordinate "4853974"
+the following letter codes the hemisphere N or S
+
+
+the x coordinate is 00420818E (?)
+the y coordinate is 4853974N
