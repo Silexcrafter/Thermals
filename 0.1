@@ -1,10 +1,10 @@
-//Creates a new file test2 extracting only the B line from test1
+//Creates a new file "Bfile" extracting only the B line from "file"
 
 from pathlib import Path
 p1= Path("Documents/Thermiques/Python/")
 p2= Path("Documents/Thermiques/Python/")
-t1= open(p1/"test1", 'r')
-t2= open(p2/"test2", 'w+')
-for line in t1:
+f1= open(p1/"file", 'r')
+f2= open(p2/"Bfile", 'w+')
+for line in f1:
         if "B" in line:
-            t2.write(line)
+            f2.write(line)
