@@ -8,3 +8,25 @@ f2= open(p2/"Bfile", 'w+')
 for line in f1:
         if "B" in line:
             f2.write(line)
+
+
+# Python3 code to demonstrate 
+# how to remove 'n' characters from starting 
+# of a string 
+
+# Initialising string 
+ini_string1 = 'B1014234854646N00419040EA005760069400000'
+
+# Initialising number of characters to be removed 
+n = 15
+
+# Printing initial string 
+print ("Initial String", ini_string1) 
+
+# Removing n characters from a string 
+# This argument count length from zero 
+# So length to be stripped is passed n-1 
+res = ini_string1[15:] 
+		
+# Printing resultant string 
+print ("Resultant String", res) 
