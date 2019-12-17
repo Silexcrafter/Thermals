@@ -1,12 +1,18 @@
-This program transforms raw data into a list of points in 3D.
+This program transforms raw data into an ordered list of points in 3D.
+
 The data is stored in an ascii text format called IGC.
-
-IGC points are stored in this way: B1006384853974N00420818EA-00190009200000
-the record must start with "B"
-the first 6 digits are the time in utc of the record "100638" in this example
-the next 7 digits are the x coordinate "4853974"
-the following letter codes the hemisphere N or S
+The actual gnss position are stored in the B record and is recorded as follow:
 
 
-the x coordinate is 00420818E (?)
-the y coordinate is 4853974N
+
+B HHMMSS DDMMMMMN DDDMMMMME A PPPPP GGGGG FXA ENL REX
+B 133729 6104325N 02309763E A 00110 00091 045 094 060003
+
+Description          Size      Element   Remarks
+Time UTC             6 bytes   HHMMSS    Valid characters 0-9
+Latitude             8 bytes   DDMMMMMN  Valid characters N, S, 0-9
+Longitude            9 bytes   DDDMMMMME Valid characters E,W, 0-9
+Fix valid            1 byte    V         A: valid, V: nav warning
+Press Alt, Meters    5 bytes   PPPPP     Valid characters -, 0-9
+GNSS Alt, Meters     5 bytes   GGGGG     Valid characters -, 0-9
+Pressure Altitude is referenced to 1013.2 mBar
