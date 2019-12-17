@@ -1,0 +1,15 @@
+// In the terminal launch "jupyter notebook"
+
+Open a file from folder :
+
+from pathlib import Path
+data_folder= Path("Documents/Thermiques/Python crash test/")
+file_to_open= data_folder / "Netcoupe"
+f=open(file_to_open)
+print(f.read())
+
+Append the file :
+
+f=open("file_to_open",a)
+f.write("the end")
+f.close()
