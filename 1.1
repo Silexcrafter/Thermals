@@ -1,9 +1,11 @@
 #Creates a new file "Bfile" extracting only the B line from "file"
 F= open("file", 'r')
 B= open("Bfile", 'w+')
-for l in F:
-        if "B" in l:
-            B.write(l)
+for i in F:
+    l=F.readline()
+    r=l[0:1]    
+    if "B" in r:
+        B.write(l)
 F.close()
 B.close()
 
