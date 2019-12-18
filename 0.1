@@ -20,6 +20,29 @@ for i in B:
 B.close()
 Z.close()
 
+//Print (i+3)-i for every i in a list
+l=(1,2,5,10,100)
+for i, li in enumerate(l):
+    for j, ji in enumerate(l):
+        if j==i+3:
+            r=ji-li
+            print(r)
+	    
+//Creates dZfile (Zn+3 -Zn) from Zfile (pressure altitude)
+
+
+Z=open("Zfile")
+dZ=open("dZfile","a+")
+L=[]
+for i in Z:
+    L.append(int(i))
+Z.close()
+for i, li in enumerate(L):
+    for j, ji in enumerate(L):
+        if j==i+3:
+            r=ji-li
+            dZ.write("%d\r\n" % r)
+dZ.close()
 _____________________________________________
 # Python3 code to demonstrate 
 # how to remove 'n' characters from starting 
