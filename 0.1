@@ -9,7 +9,18 @@ for line in f1:
         if "B" in line:
             f2.write(line)
 
+//Creates Zfile (pressure altitude) from Bfile
+B=open("Bfile","r")
+Z=open("Zfile","w+")
+for i in B:
+    l=B.readline()
+    r=l[25:30]
+    Z.write(r)
+    Z.write("\n")
+B.close()
+Z.close()
 
+_____________________________________________
 # Python3 code to demonstrate 
 # how to remove 'n' characters from starting 
 # of a string 
