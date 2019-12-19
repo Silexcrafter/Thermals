@@ -1,5 +1,4 @@
-#Print lists of positive dZ, starting a new list at each negative value
-
+#Prints list of dZ
 
 B=open("Bfile","r")
 Z=[]
@@ -11,16 +10,10 @@ for i in B:
     Z.append(int(r))  
 for i in Z:
     L.append(int(i))
-    for i, li in enumerate(L):
-        for j, ji in enumerate(L):
-            if j==i+3:
-                r=ji-li
-                dZ.append(int(r))
-j=[]
-for i in dZ:
-    if i>0:
-        j.append(i)
-    else:
-        print(j)
-        j=[]
+for i, li in enumerate(L):
+    for j, ji in enumerate(L):
+        if j==i+3:
+            r=ji-li
+            dZ.append(int(r))
+print(dZ)
 B.close()
