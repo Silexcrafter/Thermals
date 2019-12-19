@@ -67,3 +67,29 @@ for i in range (100):
     if I>0:
         C.write(LB[i])
 B.close()
+
+#May work...
+B=open("Bfile","r")
+Z=[]
+L=[]
+dZ=[]
+for i in B:
+    l=B.readline()
+    r=l[25:30]
+    Z.append(int(r))  
+for i in Z:
+    L.append(int(i))
+for i, li in enumerate(L):
+    for j, ji in enumerate(L):
+        if j==i+3:
+            r=int(ji-li)
+            dZ.append(r)
+B=open("Bfile","r")
+LB=[]
+for i in range (20):
+    l=B.readline().strip("\n")
+    LB.append(l)
+    I=dZ[i]
+    if I>0:
+        print(LB[i])
+B.close()
