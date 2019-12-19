@@ -68,15 +68,16 @@ for i in range (100):
         C.write(LB[i])
 B.close()
 
-#May work...
+#Should work...
 B=open("Bfile","r")
+C=open("Cfile","w+")
 Z=[]
 L=[]
 dZ=[]
 for i in B:
     l=B.readline()
     r=l[25:30]
-    Z.append(int(r))  
+    Z.append(int(r))
 for i in Z:
     L.append(int(i))
 for i, li in enumerate(L):
@@ -84,12 +85,17 @@ for i, li in enumerate(L):
         if j==i+3:
             r=int(ji-li)
             dZ.append(r)
+#this works
 B=open("Bfile","r")
+C=open("Cfile","w+")
 LB=[]
-for i in range (20):
+for i in range (2000):
     l=B.readline().strip("\n")
     LB.append(l)
     I=dZ[i]
-    if I>0:
+    if I>5:
+        C.write(LB[i])
+        C.write("\n")
         print(LB[i])
 B.close()
+C.close()
