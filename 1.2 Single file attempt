@@ -1,4 +1,4 @@
-#This is pure gold
+#This is pure gold. Creates Cfile containing only the Blines of the thermals
 F= open("NetCoupe2017_13788.igc", 'r')
 B= open("Bfile", 'w+')
 for i in F:
