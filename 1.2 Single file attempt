@@ -1,41 +1,6 @@
-#Prints list of dZ
-
-B=open("Bfile","r")
-Z=[]
-L=[]
-dZ=[]
-for i in B:
-    l=B.readline()
-    r=l[25:30]
-    Z.append(int(r))  
-for i in Z:
-    L.append(int(i))
-for i, li in enumerate(L):
-    for j, ji in enumerate(L):
-        if j==i+3:
-            r=ji-li
-            dZ.append(int(r))
-print(dZ)
-B.close()
-
-# If the value in M is positive, Prints the corresponding line of B
-B=open("Bfile","r")
-M=[11,2,-3,-4,56]
-LB=[]
-for i in range (5):
-    l=B.readline().strip("\n")
-    LB.append(l)
-    I=M[i]
-    if I>0:
-        print(LB[i])
-B.close()
-
-
-#DOESNT WORK!! Creates a Cfile with the Bline wich verify Zn+3 -Zn >0
-
+#Almost works
 F= open("NetCoupe2017_13788.igc", 'r')
 B= open("Bfile", 'w+')
-C=open("Cile","w+")
 for i in F:
     l=F.readline()
     r=l[0:1]    
@@ -43,58 +8,28 @@ for i in F:
         B.write(l)
 F.close()
 B.close()
-
-B=open("Bfile","r")
-Z=[]
-L=[]
-dZ=[]
-for i in B:
-    l=B.readline()
-    r=l[25:30]
-    Z.append(int(r))  
-for i in Z:
-    L.append(int(i))
-for i, li in enumerate(L):
-    for j, ji in enumerate(L):
-        if j==i+3:
-            r=ji-li
-            dZ.append(int(r))
-LB=[]
-for i in range (100):
-    l=B.readline().strip("\n")
-    LB.append(l)
-    I=dZ[i]
-    if I>0:
-        C.write(LB[i])
-B.close()
-
-
-
-
-#Should work better...
 B=open("Bfile","r")
 C=open("Cfile","w+")
 Z=[]
-L=[]
 dZ=[]
-for i in B:
-    l=B.readline()
-    r=l[25:30]
+LB=[]
+#PB with range
+for i in range(1000):
+    l=B.readline().strip("\n")
+    LB.append(l)
+for i in LB:
+    r=i[25:30]
     Z.append(int(r))
-for i in Z:
-    L.append(int(i))
-for i, li in enumerate(L):
-    for j, ji in enumerate(L):
+for i, li in enumerate(Z):
+    for j, ji in enumerate(Z):
         if j==i+3:
             r=int(ji-li)
             dZ.append(r)
-#this works
+B.close()
+C.close()
 B=open("Bfile","r")
 C=open("Cfile","w+")
-LB=[]
 for i,vi in enumerate(dZ):   #incrémentation,valeur
-    l=B.readline().strip("\n")
-    LB.append(l)
     if vi>0:
         C.write(LB[i])
         C.write("\n")
