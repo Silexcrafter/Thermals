@@ -1,8 +1,8 @@
-#This is pure gold. Creates T-file containing only the Blines of the thermals
+#Creates T-file containing only the Blines of the thermals
 Imput= input("Enter file name :")
 F=open(Imput,"r")
-T=open("T-%s" %f ,"w+")
-B= open("Bfile", 'w+')
+T=open("T-%s" %Imput ,"w+")
+B=open("B-%s" %Imput ,'w+')
 for i in F:
     l=F.readline()
     r=l[0:1]    
@@ -10,7 +10,7 @@ for i in F:
         B.write(l)
 F.close()
 B.close()
-B=open("Bfile","r")
+B=open("B-%s" %Imput ,'r')
 Z=[]
 dZ=[]
 LB=[]
