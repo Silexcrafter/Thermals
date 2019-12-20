@@ -1,0 +1,24 @@
+#BETA. Prints the initial Bline of each identified thermal. This should later be used to use the original
+#Bfile of identified thermals instead of the Cfile which may have lines missing.
+
+B=open("Bfile","r")
+dZ=[1,-5,12,45,11,2,5,1,-2,15,46,24,48,12,45,-6,5,12,56,87,-10]
+DZ=[]
+Lini=[]
+LB=[]
+for i in B:
+    B.readline
+    LB.append(i)
+for i,vi in enumerate(dZ):
+    if vi>=10:
+        DZ.append(vi)
+    else:
+        if len(DZ)>=3:
+            print(DZ)
+            Bini=LB[i-len(DZ)]
+            Lini.append(Bini)
+            DZ=[]
+        else:
+            DZ=[]
+print(Lini)
+B.close()
