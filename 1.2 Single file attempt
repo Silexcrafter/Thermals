@@ -68,7 +68,10 @@ for i in range (100):
         C.write(LB[i])
 B.close()
 
-#Should work...
+
+
+
+#Should work better...
 B=open("Bfile","r")
 C=open("Cfile","w+")
 Z=[]
@@ -89,13 +92,11 @@ for i, li in enumerate(L):
 B=open("Bfile","r")
 C=open("Cfile","w+")
 LB=[]
-for i in range (2000):
+for i,vi in enumerate(dZ):   #incrémentation,valeur
     l=B.readline().strip("\n")
     LB.append(l)
-    I=dZ[i]
-    if I>5:
+    if vi>0:
         C.write(LB[i])
         C.write("\n")
-        print(LB[i])
 B.close()
 C.close()
