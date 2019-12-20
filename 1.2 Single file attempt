@@ -1,4 +1,4 @@
-#Almost works
+#This is pure gold
 F= open("NetCoupe2017_13788.igc", 'r')
 B= open("Bfile", 'w+')
 for i in F:
@@ -13,10 +13,8 @@ C=open("Cfile","w+")
 Z=[]
 dZ=[]
 LB=[]
-#PB with range
-for i in range(1000):
-    l=B.readline().strip("\n")
-    LB.append(l)
+for i,li in enumerate(B):
+    LB.append((li).strip("\n"))
 for i in LB:
     r=i[25:30]
     Z.append(int(r))
