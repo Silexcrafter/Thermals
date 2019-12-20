@@ -1,5 +1,7 @@
-#This is pure gold. Creates Cfile containing only the Blines of the thermals
-F= open("NetCoupe2017_13788.igc", 'r')
+#This is pure gold. Creates T-file containing only the Blines of the thermals
+Imput= input("Enter file name :")
+F=open(Imput,"r")
+T=open("T-%s" %f ,"w+")
 B= open("Bfile", 'w+')
 for i in F:
     l=F.readline()
@@ -9,7 +11,6 @@ for i in F:
 F.close()
 B.close()
 B=open("Bfile","r")
-C=open("Cfile","w+")
 Z=[]
 dZ=[]
 LB=[]
@@ -23,13 +24,9 @@ for i, li in enumerate(Z):
         if j==i+3:
             r=int(ji-li)
             dZ.append(r)
-B.close()
-C.close()
-B=open("Bfile","r")
-C=open("Cfile","w+")
-for i,vi in enumerate(dZ):   #incrémentation,valeur
+for i,vi in enumerate(dZ):
     if vi>0:
-        C.write(LB[i])
-        C.write("\n")
+        T.write(LB[i])
+        T.write("\n")
 B.close()
-C.close()
+T.close()
