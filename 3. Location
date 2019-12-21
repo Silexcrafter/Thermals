@@ -3,3 +3,14 @@ Let Isn be the list of intersections computed in the program Intersection
 If the 'size' of the list is greater than 3
 Then compute the trend of the points of Is (in 3D)
 Print Tn the intersection of the trend with the plane z=0
+
+
+
+
+#interessant pour selectionner les altitudes basses en debut de fichier
+B=open("B-NetCoupe2017_20504.igc",'r')
+for i in LB:
+    r=int(i[26:31])
+    if 200<r<1000:
+        print(r)
+B.close()
