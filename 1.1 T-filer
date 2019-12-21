@@ -2,10 +2,11 @@
 #Bfile of identified thermals instead of the Cfile which may have lines missing.
 
 B=open("Bfile","r")
-dZ=[1,-5,12,45,11,2,5,1,-2,15,46,24,48,12,45,-6,5,12,56,87,-10]
+dZ=[1,-5,12,4,11,2,5,1,-2,15,46,24,48,12,45,-6,5,12,56,87,-10]
 DZ=[]
 Lini=[]
 LB=[]
+Lfin=[]
 for i in B:
     B.readline
     LB.append(i)
@@ -15,10 +16,13 @@ for i,vi in enumerate(dZ):
     else:
         if len(DZ)>=3:
             print(DZ)
-            Bini=LB[i-len(DZ)]
+            Bini=LB[i-len(DZ)].strip("\n")
+            Bfin=LB[i-1].strip("\n")
             Lini.append(Bini)
+            Lfin.append(Bfin)
             DZ=[]
         else:
             DZ=[]
 print(Lini)
+print(Lfin)
 B.close()
