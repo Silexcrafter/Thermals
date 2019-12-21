@@ -1,23 +1,40 @@
-#BETA. Prints the initial Bline of each identified thermal. This should later be used to use the original
+#BETA. Prints the Lini and Lfin. This should later be used to use the original
 #Bfile of identified thermals instead of the Cfile which may have lines missing.
 
-B=open("Bfile","r")
-dZ=[1,-5,12,4,11,2,5,1,-2,15,46,24,48,12,45,-6,5,12,56,87,-10]
+Imput= input("Enter file name :")
+F=open(Imput,"r")
+B=open("B-%s" %Imput ,'w+')
+for i in F:
+    l=F.readline()
+    r=l[0:1]    
+    if "B" in r:
+        B.write(l)
+F.close()
+B.close()
+B=open("B-%s" %Imput ,'r')
+Z=[]
+dZ=[]
+LB=[]
+for i,li in enumerate(B):
+    LB.append((li).strip("\n"))
+for i in LB:
+    r=i[25:30]
+    Z.append(int(r))
+for i, li in enumerate(Z):
+    for j, ji in enumerate(Z):
+        if j==i+3:
+            r=int(ji-li)
+            dZ.append(r)
 DZ=[]
 Lini=[]
-LB=[]
 Lfin=[]
-for i in B:
-    B.readline
-    LB.append(i)
 for i,vi in enumerate(dZ):
     if vi>=10:
         DZ.append(vi)
     else:
-        if len(DZ)>=3:
-            print(DZ)
-            Bini=LB[i-len(DZ)].strip("\n")
-            Bfin=LB[i-1].strip("\n")
+        if len(DZ)>=30:
+            Bini=i-len(DZ)
+            Bfin=i-1
             Lini.append(Bini)
             Lfin.append(Bfin)
             DZ=[]
@@ -25,4 +42,25 @@ for i,vi in enumerate(dZ):
             DZ=[]
 print(Lini)
 print(Lfin)
+T=open("T-%s" %Imput ,"w+")
+for i,vi in enumerate(Lini):
+    INI=int(vi)
+    FIN=int(Lfin[i])
+    for j,vj in enumerate(B):
+        if INI <= j <= FIN:
+            T.write(vj)
+T.close()
+B.close()
+
+
+
+#works for 1 value of Lini/Lfin
+
+B=open("B-NetCoupe2019_17191.igc","r")
+T=open("Tfile","w")
+Lini=[2298]
+Bfin=[2338]
+for j,vj in enumerate(B):
+    if INI <= j <= FIN:
+        T.write(vj)
 B.close()
