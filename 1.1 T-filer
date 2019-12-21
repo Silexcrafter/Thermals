@@ -58,9 +58,9 @@ B.close()
 
 B=open("B-NetCoupe2019_17191.igc","r")
 T=open("Tfile","w")
-Lini=[2298]
-Bfin=[2338]
+INI=566
+FIN=596
 for j,vj in enumerate(B):
     if INI <= j <= FIN:
-        T.write(vj)
+        T.append(vj)
 B.close()
