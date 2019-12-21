@@ -42,16 +42,21 @@ for i,vi in enumerate(dZ):
             DZ=[]
 print(Lini)
 print(Lfin)
-T=open("T-%s" %Imput ,"w+")
-for i,vi in enumerate(Lini):
-    INI=int(vi)
-    FIN=int(Lfin[i])
-    for j,vj in enumerate(B):
-        if INI <= j <= FIN:
-            T.write(vj)
-T.close()
-B.close()
 
+#Beta writes the T file
+
+B=open("B-NetCoupe2019_17191.igc","r")
+T=open("Tfile","a+")
+Lini=[13,566, 2298, 3251]
+Lfin=[57,596, 2338, 3289]
+for i,j in zip(Lini, Lfin):
+    for k, vk in enumerate(B):
+        if i<=k<=j:
+            T.write(vk)
+        elif k==j+1:
+            break
+B.close()
+T.close()
 
 
 #works for 1 value of Lini/Lfin
