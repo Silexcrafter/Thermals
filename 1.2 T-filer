@@ -1,0 +1,64 @@
+#A partir d'un enregistrement de vol, crée un Tfile contenant uniquement les thermiques du fichier initial
+
+Imput= input("Entrer le nom du fichier (avec l'extension) :")
+F=open(Imput,"r")
+B=open("B-%s" %Imput ,'w+')
+alpha=5   #longueur du dZ
+beta=5    #valeur mini du dZ
+gama=20   #nombre mini de dZ successifs supérieurs à la valeur mini
+
+#Crée le Bfile
+for i in F:
+    l=F.readline()
+    r=l[0:1]    
+    if "B" in r:
+        B.write(l)
+F.close()
+B.close()
+B=open("B-%s" %Imput ,'r')
+Z=[]
+dZ=[]
+LB=[]
+
+#Crée la liste dZ (intervalle entre 2 altitudes)
+for i,li in enumerate(B):
+    LB.append((li).strip("\n"))
+for i in LB:
+    r=i[25:30]
+    Z.append(int(r))
+for i, li in enumerate(Z):
+    for j, ji in enumerate(Z):
+        if j==i+alpha:
+            r=int(ji-li)
+            dZ.append(r)
+            
+#Crée les liste Lini et Lfin (début et fin des thermiques)
+DZ=[]      #liste de dZ supérieurs à beta
+Lini=[]    #liste des positions de début des thermiques
+Lfin=[]    #liste des positions des fins des thermiques
+for i,vi in enumerate(dZ):
+    if vi>=beta:
+        DZ.append(vi)
+    else:
+        if len(DZ)>=gama:
+            Bini=i-len(DZ)
+            Bfin=i-1
+            Lini.append(Bini)
+            Lfin.append(Bfin)
+            DZ=[]
+        else:
+            DZ=[]
+print(Lini)
+print(Lfin)
+
+#Ecrit le Tfile (séléctionne les Bline correspondant aux thermiques)
+T=open("Tfile","w+")
+for i,j in zip(Lini, Lfin):
+    for k, vk in enumerate(LB):
+        if i<=k<=j:
+            T.write(vk)
+            T.write("\n")
+        elif k==j+1:
+            break
+B.close()
+T.close()
