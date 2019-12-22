@@ -1,0 +1,50 @@
+#Ecrit le début de chaque thermique. Stupide cherche dans Lini
+
+T=open("Tfile","r")
+LZT=[]
+for i in(T):
+    Zi=LZT.append((i[25:30]))
+print(LZT)
+for i, vi in enumerate(LZT):
+    for j, vj in enumerate(LZT):
+        if j==i+1:
+            if int(vj)+30<int(vi):
+                print(vj)
+T.close()
+
+#Ecrit une moyenne bizarre du début et une de la fin du thermique
+i=242
+j=267
+l=int((j+i)/2)
+X=[]
+Y=[]
+from numpy import mean
+l=int((j+i)/2)
+for k in range(i,j):
+    ya=int(LB[k][7:9])
+    yb=int(LB[k][9:14])
+    yc=ya+yb/100000
+    xa=int(LB[k][15:18])
+    xb=int(LB[k][18:23])
+    xc=xa+xb/100000
+    X.append(xc)
+    Y.append(yc)
+mX=mean(X)
+mY=mean(Y)
+print(mX)
+print(mY)
+X=[]
+Y=[]
+for m in range(l,j):
+    ya=int(LB[m][7:9])
+    yb=int(LB[m][9:14])
+    yc=ya+yb/100000
+    xa=int(LB[m][15:18])
+    xb=int(LB[m][18:23])
+    xc=xa+xb/100000
+    X.append(xc)
+    Y.append(yc)
+mX=mean(X)
+mY=mean(Y)
+print(mX)
+print(mY)
