@@ -21,30 +21,33 @@ Y=[]
 from numpy import mean
 l=int((j+i)/2)
 for k in range(i,j):
-    ya=int(LB[k][7:9])
-    yb=int(LB[k][9:14])
+    d=LB[k]
+    ya=int(d[7:9])
+    yb=int(d[9:14])
     yc=ya+yb/100000
-    xa=int(LB[k][15:18])
-    xb=int(LB[k][18:23])
+    xa=int(d[15:18])
+    xb=int(d[18:23])
     xc=xa+xb/100000
     X.append(xc)
     Y.append(yc)
-mX=mean(X)
-mY=mean(Y)
+mX=round(mean(X),5)
+mY=round(mean(Y),5)
 print(mX)
 print(mY)
 X=[]
 Y=[]
 for m in range(l,j):
-    ya=int(LB[m][7:9])
-    yb=int(LB[m][9:14])
+    d=LB[m]
+    ya=int(d[7:9])
+    yb=int(d[9:14])
     yc=ya+yb/100000
-    xa=int(LB[m][15:18])
-    xb=int(LB[m][18:23])
+    xa=int(d[15:18])
+    xb=int(d[18:23])
     xc=xa+xb/100000
     X.append(xc)
     Y.append(yc)
-mX=mean(X)
-mY=mean(Y)
+mX=round(mean(X),5)
+mY=round(mean(Y),5)
 print(mX)
 print(mY)
+print(LB[250][7:23])
