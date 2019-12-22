@@ -1,0 +1,13 @@
+#Ecrit le début de chaque thermique. Stupide cherche dans Lini
+
+T=open("Tfile","r")
+LZT=[]
+for i in(T):
+    Zi=LZT.append((i[25:30]))
+print(LZT)
+for i, vi in enumerate(LZT):
+    for j, vj in enumerate(LZT):
+        if j==i+1:
+            if int(vj)+30<int(vi):
+                print(vj)
+T.close()
