@@ -2,8 +2,11 @@
 #et de la moyenne 2e moitié des positions. Utilise LT (pas terrible! utiliser Lini et Lfin pour réduire le temps de calcul?)
 
 T=open("Tfile","r")
-I=[1]
+I=[]
 J=[]
+LT=[]
+for i in(T):
+    LT.append(i)
 for i, vi in enumerate(LT):
     for j, vj in enumerate(LT):
         if j==i+1:
@@ -12,11 +15,11 @@ for i, vi in enumerate(LT):
             if int(zj)+30<int(zi):
                 I.append(j+1)
                 J.append(i+1)
-print(I)
-print(J)
 T.close()
-
-
+J.remove(J[0])
+X=[]
+Y=[]
+from numpy import mean
 for i,j in zip(I,J):
     l=int((j+i)/2)
     print(i,j)
