@@ -1,0 +1,38 @@
+#Imprime rééelement le numéro de ligne du début et de la fin de chaque thermique suivi de la moyenne 1ere moitié
+#et de la moyenne 2e moitié des positions.
+
+for i,j in zip(I,J):
+    l=int((j+i)/2)
+    print(i,j)
+    for k in range(i,l):
+        d=LT[k]
+        yd=int(d[7:9])
+        ym=int(d[9:11])
+        ys=int(d[11:14])
+        y=round(yd+ym/60+ys/36000,5)
+        xd=int(d[15:18])
+        xm=int(d[18:20])
+        xs=int(d[20:23])
+        x=round(xd+xm/60+xs/36000,5)
+        X.append(x)
+        Y.append(y)
+    mX=round(mean(X),5)
+    mY=round(mean(Y),5)
+    print(mY,",",mX)
+    X=[]
+    Y=[]
+    for m in range(l,j):
+        d=LT[m]
+        yd=int(d[7:9])
+        ym=int(d[9:11])
+        ys=int(d[11:14])
+        y=round(yd+ym/60+ys/36000,5)
+        xd=int(d[15:18])
+        xm=int(d[18:20])
+        xs=int(d[20:23])
+        x=round(xd+xm/60+xs/36000,5)
+        X.append(x)
+        Y.append(y)
+    mX=round(mean(X),5)
+    mY=round(mean(Y),5)
+    print(mY,",",mX)
