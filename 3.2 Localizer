@@ -1,0 +1,64 @@
+#Calcule la moyenne des x,y,z de chaque première moitié de thermique (ini) et de chaque deuxième moitié (fin)
+X=[]
+Y=[]
+Z=[]
+MXi=[]
+MYi=[]
+MZi=[]
+MXf=[]
+MYf=[]
+MZf=[]
+from numpy import mean
+for i,j in zip(Lini,Lfin):
+    l=int((j+i)/2)
+    for k in range(i,l):
+        d=LB[k]
+        yd=int(d[7:9])
+        ym=int(d[9:11])
+        ys=int(d[11:14])
+        y=round(yd+ym/60+ys/36000,5)
+        xd=int(d[15:18])
+        xm=int(d[18:20])
+        xs=int(d[20:23])
+        x=round(xd+xm/60+xs/36000,5)
+        z=int(d[25:30])
+        X.append(x)
+        Y.append(y)
+        Z.append(z)
+    MXi.append(round(mean(X),5))
+    MYi.append(round(mean(Y),5))
+    MZi.append(round(mean(Z)))
+    X=[]
+    Y=[]
+    Z=[]
+    for m in range(l,j):
+        d=LB[m]
+        yd=int(d[7:9])
+        ym=int(d[9:11])
+        ys=int(d[11:14])
+        y=round(yd+ym/60+ys/36000,5)
+        xd=int(d[15:18])
+        xm=int(d[18:20])
+        xs=int(d[20:23])
+        x=round(xd+xm/60+xs/36000,5)
+        z=int(d[25:30])
+        X.append(x)
+        Y.append(y)
+        Z.append(z)
+    MXf.append(round(mean(X),5))
+    MYf.append(round(mean(Y),5))
+    MZf.append(round(mean(Z)))
+T.close()
+#Calcule le coefficient directeur de la droite qui passe par les points ini et fin de chaque
+#thermique et le point z=0 (rx,ry)
+for xi,xf,yi,yf,zi,zf in zip(MXi,MXf,MYi,MYf,MZi,MZf):
+    z =[192,541]
+    x =[46.89454,46.91193]
+    y =[2.02905,1.99142]
+    ax=((zf-zi)/(xf-xi))
+    bx=zf-ax*xf
+    rx=round(-bx/ax,5)
+    ay=((zf-zi)/(yf-yi))
+    by=zf-ay*yf
+    ry=round(-by/ay,5)
+    print(ry,rx)
