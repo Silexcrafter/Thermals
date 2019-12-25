@@ -1,3 +1,69 @@
+#a partir de Lini et Lfin: calcule la position x,y de chaque thermique en calculant la droite passant par le point moyen 
+# de la 1ere moitiée du thermique et celui de la 2e moitié du thermique.(methode d'approximation de Mayer)
+
+NomDuFichier= input("Entrer le nom du fichier (avec l'extension) :")
+F=open(NomDuFichier,"r")
+B=open("B-%s" %NomDuFichier ,'w+')
+Lg_dZ=5      #longueur du dZ
+dZ_min=12    #valeur mini du dZ
+dZ_succ=20   #nombre mini de dZ successifs supérieurs à la valeur mini
+
+#Crée le Bfile
+for i in F:
+    ligne=F.readline()
+    r=ligne[0:1]    
+    if "B" in r:
+        B.write(ligne)
+F.close()
+B.close()
+B=open("B-%s" %NomDuFichier ,'r')
+Z=[]
+dZ=[]
+LB=[]
+
+#Crée la liste dZ (intervalle entre 2 altitudes)
+for i,li in enumerate(B):
+    LB.append((li).strip("\n"))
+for i in LB:
+    r=i[25:30]
+    Z.append(int(r))
+for i, li in enumerate(Z):
+    for j, ji in enumerate(Z):
+        if j==i+Lg_dZ:
+            r=int(ji-li)
+            dZ.append(r)
+            
+#Crée les liste Lini et Lfin (début et fin des thermiques)
+DZ=[]      #liste de dZ supérieurs à dZ_min
+Lini=[]    #liste des positions de début des thermiques
+Lfin=[]    #liste des positions des fins des thermiques
+for i,vi in enumerate(dZ):
+    if vi>=dZ_min:
+        DZ.append(vi)
+    else:
+        if len(DZ)>=dZ_succ:
+            Nini=i-len(DZ)+Lg_dZ
+            Nfin=i-1
+            Lini.append(Nini)
+            Lfin.append(Nfin)
+            DZ=[]
+        else:
+            DZ=[]
+
+print(Lini)  
+
+#Ecrit le Tfile (séléctionne les Bline correspondant aux thermiques)
+T=open("Tfile","w+") 
+for i,j in zip(Lini, Lfin):
+    for k, vk in enumerate(LB):
+        if i<=k<=j:
+            T.write(vk)
+            T.write("\n")
+        elif k==j+1:
+            break
+B.close()
+T.close()
+
 #Calcule la moyenne des x,y,z de chaque première moitié de thermique (ini) et de chaque deuxième moitié (fin)
 X=[]
 Y=[]
@@ -48,17 +114,24 @@ for i,j in zip(Lini,Lfin):
     MXf.append(round(mean(X),5))
     MYf.append(round(mean(Y),5))
     MZf.append(round(mean(Z)))
-T.close()
+    X=[]
+    Y=[]
+    Z=[]
 #Calcule le coefficient directeur de la droite qui passe par les points ini et fin de chaque
 #thermique et le point z=0 (rx,ry)
 for xi,xf,yi,yf,zi,zf in zip(MXi,MXf,MYi,MYf,MZi,MZf):
-    z =[192,541]
-    x =[46.89454,46.91193]
-    y =[2.02905,1.99142]
-    ax=((zf-zi)/(xf-xi))
-    bx=zf-ax*xf
-    rx=round(-bx/ax,5)
-    ay=((zf-zi)/(yf-yi))
-    by=zf-ay*yf
-    ry=round(-by/ay,5)
-    print(ry,rx)
+    if xf==xi:
+        rx=0
+        print("erreur : xf=xi")
+    else:
+        ax=((zf-zi)/(xf-xi))
+        bx=zf-ax*xf
+        rx=round(-bx/ax,5)
+    if yf==yi:
+        rx=0
+        print("erreur : yf=yi")
+    else:
+        ay=((zf-zi)/(yf-yi))
+        by=zf-ay*yf
+        ry=round(-by/ay,5)
+    print(ry,",",rx)
