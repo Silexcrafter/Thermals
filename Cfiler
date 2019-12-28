@@ -1,0 +1,144 @@
+#a partir de Lini et Lfin: calcule la position x,y de chaque thermique en calculant la droite passant par le point moyen 
+# de la 1ere moitiée du thermique et celui de la 2e moitié du thermique.(methode d'approximation de Mayer)
+import os
+for NomDuFichier in os.listdir():
+    if NomDuFichier.endswith(".igc"):
+        #NomDuFichier= input("Entrer le nom du fichier (avec l'extension) :")
+        F=open(NomDuFichier,"r")
+        Lg_dZ=5      #longueur du dZ
+        dZ_min=5    #valeur mini du dZ
+        dZ_succ=30   #nombre mini de dZ successifs supérieurs à la valeur mini
+        LB=[]
+        dZ=[]
+        DZ=[]      #liste de dZ supérieurs à dZ_min
+        Lini=[]    #liste des positions de début des thermiques
+        Lfin=[]    #liste des positions des fins des thermiques
+        #Crée le Bfile
+        for i in F:
+            ligne=F.readline()
+            r=ligne[0:1]    
+            if "B" in r:
+                 LB.append(ligne.strip("\n"))
+        F.close()
+
+
+        #Crée la liste dZ (intervalle entre 2 altitudes)
+        for i in range(len(LB)-Lg_dZ):
+            j=i+Lg_dZ
+            r=int(LB[j][25:30])-int(LB[i][25:30])
+            dZ.append(r)
+    
+        #Crée les liste Lini et Lfin (début et fin des thermiques)
+
+        for i,vi in enumerate(dZ):
+            if vi>=dZ_min:
+                DZ.append(vi)
+            else:
+                if len(DZ)>=dZ_succ:
+                    ini=i-len(DZ)+Lg_dZ
+                    fin=i-1
+                    Lini.append(ini)
+                    Lfin.append(fin)
+                    DZ=[]
+                else:
+                    DZ=[]
+
+        #Ecrit le Tfile (séléctionne les Bline correspondant aux thermiques)
+        T=open("Tfile","w+") 
+        for i,j in zip(Lini, Lfin):
+            for k, vk in enumerate(LB):
+                if i<=k<=j:
+                    T.write(vk)
+                    T.write("\n")
+                elif k==j+1:
+                    break
+        T.close()
+
+        #Calcule la moyenne des x,y,z de chaque première moitié de thermique (ini) et de chaque deuxième moitié (fin)
+        X=[]
+        Y=[]
+        Z=[]
+        MXi=[]
+        MYi=[]
+        MZi=[]
+        MXf=[]
+        MYf=[]
+        MZf=[]
+        from numpy import mean
+        for i,j in zip(Lini,Lfin):
+            l=int((j+i)/2)
+            for k in range(i,l):
+                d=LB[k]
+                yd=int(d[7:9])
+                ym=int(d[9:11])
+                ys=int(d[11:14])
+                y=round(yd+ym/60+ys/36000,5)
+                xd=int(d[15:18])
+                xm=int(d[18:20])
+                xs=int(d[20:23])
+                x=round(xd+xm/60+xs/36000,5)
+                z=int(d[25:30])
+                X.append(x)
+                Y.append(y)
+                Z.append(z)
+            MXi.append(round(mean(X),5))
+            MYi.append(round(mean(Y),5))
+            MZi.append(round(mean(Z)))
+            X=[]
+            Y=[]
+            Z=[]
+            for m in range(l,j):
+                d=LB[m]
+                yd=int(d[7:9])
+                ym=int(d[9:11])
+                ys=int(d[11:14])
+                y=round(yd+ym/60+ys/36000,5)
+                xd=int(d[15:18])
+                xm=int(d[18:20])
+                xs=int(d[20:23])
+                x=round(xd+xm/60+xs/36000,5)
+                z=int(d[25:30])
+                X.append(x)
+                Y.append(y)
+                Z.append(z)
+            MXf.append(round(mean(X),5))
+            MYf.append(round(mean(Y),5))
+            MZf.append(round(mean(Z)))
+            X=[]
+            Y=[]
+            Z=[]
+        #Calcule le coefficient directeur de la droite qui passe par les points ini et fin de chaque
+        #thermique et le point zmoy=150 (rx,ry)
+        zmoy=150
+        C=open("Cfile","a+")
+        for xi,xf,yi,yf,zi,zf in zip(MXi,MXf,MYi,MYf,MZi,MZf):
+            if xf==xi:
+                rx=0
+                C.write("erreur : xf=xi")
+            else:
+                ax=((zf-zi)/(xf-xi))
+                bx=zf-ax*xf
+                if abs(ax)>0:      #sélectionne les coeffs élevés (peu de vent)
+                    rx=round((zmoy-bx)/ax,5)
+                else:
+                    rx=0
+            if yf==yi:
+                rx=0
+                C.write("erreur : yf=yi")
+            else:
+                ay=((zf-zi)/(yf-yi))
+                by=zf-ay*yf
+                if abs(ay)>0:
+                    ry=round((zmoy-by)/ay,5)
+                else:
+                    ry=0
+            C.write(str(ry))
+            C.write(";")
+            C.write(str(rx))
+            C.write(";\n")
+        C.close()
+        #for i in R:
+            #interroger la base de données rx,ry-> zz
+            #xx=(zz-bx)/ax
+            #yy=(zz_by)/zy
+            #C.append xx, yy
